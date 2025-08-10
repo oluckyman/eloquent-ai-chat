@@ -18,29 +18,20 @@ type Handle = {
 };
 
 export function init(options: InitOptions = {}): Handle {
-  // 1) Host node in page DOM
   const host = document.createElement("div");
   host.id = "eloquent-chat-container";
   document.body.appendChild(host);
 
-  // 2) Shadow DOM for isolation
   const shadow = host.attachShadow({ mode: "open" });
 
-  // 3) Inject styles into shadow (single source of truth)
   const style = document.createElement("style");
   // :host{all:initial} prevents host-page CSS from leaking in
   style.textContent = `:host{all:initial}\n${baseCss}`;
   shadow.appendChild(style);
 
   const mount = document.createElement("div");
-  mount.className = "eqt-shell";
   shadow.appendChild(mount);
 
-  if (options.zIndex != null) {
-    mount.style.zIndex = options.zIndex.toString();
-  }
-
-  // 6) Render React widget inside the shadow root
   const root = createRoot(mount);
   let isOpen = options.defaultOpen ?? true;
   let isDestroyed = false;

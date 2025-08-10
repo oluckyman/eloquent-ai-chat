@@ -1,4 +1,4 @@
-import { useState, type FC } from "react";
+import { useState } from "react";
 import { Logo } from "./ui/Logo";
 import "./styles/base.css";
 
@@ -10,6 +10,7 @@ export type Theme = {
   text?: string;
   radius?: string;
   shadow?: string;
+  zIndex?: string;
 };
 export type EloquentChatProps = {
   title?: string;
@@ -19,13 +20,7 @@ export type EloquentChatProps = {
   theme?: Theme;
 };
 
-export const EloquentChat: FC<EloquentChatProps> = ({
-  title = "Eloquent AI",
-  open,
-  defaultOpen = true,
-  onToggle,
-  theme,
-}) => {
+export function EloquentChat({ title = "Eloquent AI", open, defaultOpen = true, onToggle, theme }: EloquentChatProps) {
   const [uncontrolledOpen, setUncontrolledOpen] = useState(defaultOpen);
   const isControlled = open !== undefined;
   const isOpen = isControlled ? open : uncontrolledOpen;
@@ -48,7 +43,7 @@ export const EloquentChat: FC<EloquentChatProps> = ({
 
   return (
     <div className="eqt-root" style={varStyle}>
-      {isOpen ? (
+      {isOpen && (
         <div className="eqt-panel">
           <div className="eqt-header">
             <Logo className="eqt-logo" />
@@ -61,15 +56,14 @@ export const EloquentChat: FC<EloquentChatProps> = ({
             <input placeholder="Type a message…" />
           </div>
         </div>
-      ) : (
-        <button
-          className="eqt-launcher eqt-button"
-          title={isOpen ? "Close chat" : "Open chat"}
-          onClick={() => setOpen(!isOpen)}
-        >
-          <Logo />
-        </button>
       )}
+      <button
+        className="eqt-launcher eqt-button"
+        title={isOpen ? "Close chat" : "Open chat"}
+        onClick={() => setOpen(!isOpen)}
+      >
+        <Logo />
+      </button>
     </div>
   );
-};
+}

@@ -6,13 +6,6 @@ const meta: Meta<typeof EloquentChat> = {
   title: "EloquentChat",
   component: EloquentChat,
   args: {},
-  decorators: [
-    (Story) => (
-      <div className="eqt-shell">
-        <Story />
-      </div>
-    ),
-  ],
 };
 export default meta;
 
