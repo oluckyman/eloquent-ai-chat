@@ -95,8 +95,16 @@ export function EloquentChat({
         .then((replyText) => {
           setMessages((curr) => [...curr, { id: `a_${Date.now()}`, role: "assistant", text: replyText }]);
         })
-        .catch(() => {
-          // (errors later; skip for now)
+        .catch((err) => {
+          setMessages((curr) => [
+            ...curr,
+            {
+              id: `e_${Date.now()}`,
+              role: "assistant",
+              text: "Sorry, something went wrong. Please try again.",
+            },
+          ]);
+          console.warn("Agent failed:", err);
         })
         .finally(() => {
           setWaiting(false);
