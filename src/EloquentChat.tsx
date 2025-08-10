@@ -1,9 +1,9 @@
-import { type FormEvent, useState } from "react";
+import { type FormEvent, useRef, useState } from "react";
 import { Logo } from "./ui/Logo";
 import { ChevronDown } from "./ui/ChevronDown";
+import type { AgentClient, Message } from "./agent/types";
+import { MockAgentClient } from "./agent/mock";
 import "./styles/base.css";
-
-type Message = { id: string; role: "user" | "assistant"; text: string };
 
 export type Theme = {
   font?: string;
@@ -51,13 +51,30 @@ export function EloquentChat({ title = "Eloquent AI", open, defaultOpen = true, 
   //
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
+  const agentRef = useRef<AgentClient>(new MockAgentClient());
+
   const handleSend = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const text = input.trim();
     if (!text) return;
+
     const now = Date.now();
     const userMessage: Message = { id: `u_${now}`, role: "user", text };
-    setMessages((m) => [...m, userMessage]);
+
+    setMessages((prevHistory) => {
+      const nextHistory = [...prevHistory, userMessage];
+      agentRef.current
+        .send(nextHistory)
+        .then((replyText) => {
+          setMessages((curr) => [...curr, { id: `a_${Date.now()}`, role: "assistant", text: replyText }]);
+        })
+        .catch(() => {
+          // (errors later; skip for now)
+        });
+
+      return nextHistory;
+    });
+
     setInput("");
   };
 
