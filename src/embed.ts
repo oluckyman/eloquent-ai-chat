@@ -59,6 +59,7 @@ export function init(options: InitOptions = {}): Handle {
   // 6) Render React widget inside the shadow root
   const root = createRoot(mount);
   let isOpen = options.defaultOpen ?? true;
+  let isDestroyed = false;
   const render = () =>
     root.render(
       React.createElement(EloquentChat, {
@@ -75,14 +76,18 @@ export function init(options: InitOptions = {}): Handle {
 
   return {
     open: () => {
+      if (isDestroyed) return;
       isOpen = true;
       render();
     },
     close: () => {
+      if (isDestroyed) return;
       isOpen = false;
       render();
     },
     destroy: () => {
+      if (isDestroyed) return;
+      isDestroyed = true;
       root.unmount();
       host.remove();
     },
