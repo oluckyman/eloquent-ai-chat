@@ -22,6 +22,7 @@ export type Theme = {
   zIndex?: string;
   // add more --eqt-* vars from .eqt-root in base.css if needed
 };
+
 export type EloquentChatProps = {
   title?: string;
   open?: boolean;
