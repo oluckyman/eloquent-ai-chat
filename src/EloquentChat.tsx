@@ -1,7 +1,8 @@
-import { type ComponentProps, type FormEvent, useEffect, useRef, useState } from "react";
+import { type ComponentProps, type FormEvent, useState } from "react";
 import { Logo } from "./ui/Logo";
 import { ChevronDown } from "./ui/ChevronDown";
 import { Header } from "./ui/Header";
+import { MessageList } from "./ui/MessageList";
 import type { Message } from "./agent/types";
 import { useChatAgent } from "./hooks/useChatAgent";
 
@@ -84,49 +85,12 @@ export function EloquentChat({
     setInput("");
   };
 
-  // Auto-scroll
-  //
-  const messagesRef = useRef<HTMLDivElement | null>(null);
-  useEffect(() => {
-    const el = messagesRef.current;
-    if (!el) return;
-
-    const rAF = requestAnimationFrame(() => {
-      el.scrollTop = el.scrollHeight;
-    });
-
-    return () => cancelAnimationFrame(rAF);
-  }, [messages.length, waiting]);
-
   return (
     <div className={`eqt-root ${isOpen ? "is-open" : ""}`} style={varStyle}>
       {isOpen && (
         <div className="eqt-panel">
           <Header title={title} status={statusOrMaintenance} onClose={() => setOpen(false)} />
-          <div className="eqt-messages" ref={messagesRef}>
-            {messages.length === 0 ? (
-              <div className="eqt-placeholder">Ask me anything! ✨</div>
-            ) : (
-              messages.map((m) => (
-                <div key={m.id} className={`eqt-row eqt-row--${m.role}`}>
-                  {m.role === "assistant" && (
-                    <div className="eqt-avatar">
-                      <Logo />
-                    </div>
-                  )}
-                  <div className={`eqt-bubble eqt-bubble--${m.role}`}>{m.text}</div>
-                </div>
-              ))
-            )}
-            {waiting && (
-              <div className="eqt-row eqt-row--assistant">
-                <div className="eqt-avatar">
-                  <Logo />
-                </div>
-                <div className="eqt-bubble eqt-bubble--assistant">Thinking…</div>
-              </div>
-            )}
-          </div>
+          <MessageList messages={messages} waiting={waiting} />
 
           {maintenance && <div className="eqt-maintenance">{maintenanceMessage}</div>}
           <form className={`eqt-inputRow ${maintenance ? "eqt-inputRow--maintenance" : ""}`} onSubmit={handleSend}>
