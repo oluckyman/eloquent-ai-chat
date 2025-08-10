@@ -43,23 +43,27 @@ export function EloquentChat({ title = "Eloquent AI", open, defaultOpen = true, 
   }
 
   return (
-    <div className="eqt-root" style={varStyle}>
+    <div className={`eqt-root ${isOpen ? "is-open" : ""}`} style={varStyle}>
       {isOpen && (
         <div className="eqt-panel">
           <div className="eqt-header">
             <Logo className="eqt-logo" />
             <div className="eqt-title">{title}</div>
+            <button className="eqt-close" type="button" onClick={() => setOpen(false)}>
+              ×
+            </button>
           </div>
           <div className="eqt-messages">
             <div>Welcome! This is a stub. ✨</div>
           </div>
           <div className="eqt-inputRow">
-            <input placeholder="Type a message…" />
+            <input placeholder="Type a message…" autoFocus autoComplete="off" />
           </div>
         </div>
       )}
       <button
         className="eqt-launcher eqt-button"
+        type="button"
         title={isOpen ? "Close chat" : "Open chat"}
         onClick={() => setOpen(!isOpen)}
       >

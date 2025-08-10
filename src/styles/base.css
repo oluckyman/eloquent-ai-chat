@@ -72,6 +72,14 @@
   font-size: 14px;
   font-weight: 600;
 }
+.eqt-close {
+  display: none;
+  background: transparent;
+  border: 0;
+  font-size: 20px;
+  cursor: pointer;
+  margin-left: auto;
+}
 
 .eqt-messages {
   flex: 1;
@@ -99,4 +107,24 @@
 }
 .eqt-button:hover {
   background: var(--eqt-primary-hover);
+}
+
+@media (max-width: 640px) {
+  .eqt-root.is-open {
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+  }
+  .eqt-panel {
+    top: 0;
+    bottom: 0;
+    width: 100vw;
+    max-height: none;
+    border-radius: 0;
+    box-shadow: none;
+  }
+  .eqt-close {
+    display: inline-flex;
+  }
 }
