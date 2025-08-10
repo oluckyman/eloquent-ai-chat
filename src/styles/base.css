@@ -159,12 +159,35 @@
   gap: 8px;
   padding: 10px 12px;
   border-top: 1px solid rgba(0, 0, 0, 0.06);
+  position: relative;
 }
 .eqt-inputRow input {
   flex: 1;
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 10px;
   padding: 8px 10px;
+  padding-right: 38px;
+}
+.eqt-send {
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 0;
+  background: var(--eqt-primary);
+  color: var(--eqt-bg);
+  cursor: pointer;
+}
+.eqt-send:hover {
+  background: var(--eqt-primary-hover);
+}
+.eqt-send[disabled] {
+  opacity: 0.6;
+  cursor: default;
+  pointer-events: none;
 }
 
 .eqt-button {

@@ -67,7 +67,7 @@ export function EloquentChat({ title = "Eloquent AI", open, defaultOpen = true, 
 
     setMessages((prevHistory) => {
       const nextHistory = [...prevHistory, userMessage];
-      setTimeout(() => setWaiting(true), 500); // delay a bit to feel more natural
+      setWaiting(true);
       agentRef.current
         .send(nextHistory)
         .then((replyText) => {
@@ -129,7 +129,7 @@ export function EloquentChat({ title = "Eloquent AI", open, defaultOpen = true, 
               autoFocus
               autoComplete="off"
             />
-            <button type="submit" disabled={input.trim().length === 0 || waiting}>
+            <button className="eqt-send" type="submit" disabled={input.trim().length === 0 || waiting}>
               {waiting ? "…" : "↑"}
             </button>
           </form>
