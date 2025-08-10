@@ -3,6 +3,7 @@ import { Logo } from "./ui/Logo";
 import { ChevronDown } from "./ui/ChevronDown";
 import { Header } from "./ui/Header";
 import { MessageList } from "./ui/MessageList";
+import { InputBar } from "./ui/InputBar";
 import type { Message } from "./agent/types";
 import { useChatAgent } from "./hooks/useChatAgent";
 
@@ -91,21 +92,14 @@ export function EloquentChat({
         <div className="eqt-panel">
           <Header title={title} status={statusOrMaintenance} onClose={() => setOpen(false)} />
           <MessageList messages={messages} waiting={waiting} />
-
-          {maintenance && <div className="eqt-maintenance">{maintenanceMessage}</div>}
-          <form className={`eqt-inputRow ${maintenance ? "eqt-inputRow--maintenance" : ""}`} onSubmit={handleSend}>
-            <input
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              placeholder="Type a message…"
-              autoFocus
-              autoComplete="off"
-              disabled={maintenance}
-            />
-            <button className="eqt-send" type="submit" disabled={input.trim().length === 0 || waiting || maintenance}>
-              {waiting ? "…" : "↑"}
-            </button>
-          </form>
+          <InputBar
+            value={input}
+            onChange={setInput}
+            onSubmit={handleSend}
+            maintenance={maintenance}
+            maintenanceMessage={maintenanceMessage}
+            waiting={waiting}
+          />
         </div>
       )}
       <button
