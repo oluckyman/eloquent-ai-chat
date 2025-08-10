@@ -101,13 +101,25 @@ export function EloquentChat({ title = "Eloquent AI", open, defaultOpen = true, 
             {messages.length === 0 ? (
               <div className="eqt-placeholder">Ask me anything! ✨</div>
             ) : (
-              messages.map((message) => (
-                <div key={message.id} className={`eqt-message eqt-role-${message.role}`}>
-                  {message.role}: {message.text}
+              messages.map((m) => (
+                <div key={m.id} className={`eqt-row eqt-row--${m.role}`}>
+                  {m.role === "assistant" && (
+                    <div className="eqt-avatar">
+                      <Logo />
+                    </div>
+                  )}
+                  <div className={`eqt-bubble eqt-bubble--${m.role}`}>{m.text}</div>
                 </div>
               ))
             )}
-            {waiting && <div className="eqt-thinking">Thinking…</div>}
+            {waiting && (
+              <div className="eqt-row eqt-row--assistant">
+                <div className="eqt-avatar">
+                  <Logo />
+                </div>
+                <div className="eqt-bubble eqt-bubble--assistant">Thinking…</div>
+              </div>
+            )}
           </div>
           <form className="eqt-inputRow" onSubmit={handleSend}>
             <input

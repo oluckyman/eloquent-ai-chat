@@ -3,6 +3,7 @@
   --eqt-primary: rgb(111, 51, 183);
   --eqt-primary-hover: rgb(235, 108, 82);
   --eqt-bg: #ffffff;
+  --eqt-bg-secondary: #e9eaee;
   --eqt-text: rgb(38, 38, 35);
   --eqt-text-secondary: rgb(138, 138, 135);
   --eqt-radius: 12px;
@@ -62,13 +63,10 @@
 .eqt-logo {
   width: 20px;
   height: 20px;
+  padding: 4px;
   border-radius: 50%;
   background: var(--eqt-primary);
   color: var(--eqt-bg);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 4px;
 }
 .eqt-title {
   font-size: 14px;
@@ -87,15 +85,73 @@
   flex: 1;
   overflow: auto;
   padding: 8px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
+.eqt-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+}
+.eqt-row--user {
+  justify-content: flex-end;
+}
+
+.eqt-avatar {
+  width: 15px;
+  height: 15px;
+  padding: 3px;
+  border-radius: 50%;
+  background: var(--eqt-primary);
+  color: var(--eqt-bg);
+}
+.eqt-bubble {
+  position: relative;
+  max-width: 70%;
+  padding: 12px 14px;
+  border-radius: 16px;
+  font-size: 14px;
+  line-height: 1.4;
+}
+.eqt-bubble--assistant {
+  background: var(--eqt-bg-secondary);
+  color: var(--eqt-text);
+  border-bottom-left-radius: 6px;
+}
+.eqt-bubble--assistant::before {
+  content: "";
+  position: absolute;
+  left: -8px;
+  bottom: 7px;
+  width: 0;
+  height: 0;
+  border-right: 8px solid var(--eqt-bg-secondary);
+  border-top: 8px solid transparent;
+  border-bottom: 4px solid transparent;
+}
+.eqt-bubble--user {
+  background: var(--eqt-primary);
+  color: var(--eqt-bg);
+  border-bottom-right-radius: 6px;
+}
+.eqt-bubble--user::after {
+  content: "";
+  position: absolute;
+  right: -7px;
+  bottom: 8px;
+  width: 0;
+  height: 0;
+  border-left: 8px solid var(--eqt-primary);
+  border-top: 8px solid transparent;
+  border-bottom: 4px solid transparent;
+}
+
 .eqt-placeholder {
   color: var(--eqt-text-secondary);
   padding: 24px;
   text-align: center;
   font-size: 12px;
-}
-.eqt-thinking {
-  color: var(--eqt-text-secondary);
 }
 
 .eqt-inputRow {
