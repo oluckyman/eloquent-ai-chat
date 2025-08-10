@@ -26,9 +26,14 @@
   justify-content: center;
   width: 52px;
   height: 52px;
-  border-radius: 100%;
+  border-radius: 50%;
   box-shadow: var(--eqt-shadow);
   cursor: pointer;
+}
+.eqt-launcher svg {
+  width: 24px;
+  height: 24px;
+  display: block;
 }
 
 .eqt-panel {
@@ -45,8 +50,23 @@
 .eqt-header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 10px 12px;
+  gap: 8px;
+  padding: 12px 14px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+.eqt-logo {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--eqt-primary);
+  color: var(--eqt-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+}
+.eqt-title {
+  font-size: 14px;
   font-weight: 600;
 }
 
@@ -68,20 +88,11 @@
   border-radius: 10px;
   padding: 8px 10px;
 }
-.eqt-inputRow button {
-  border: 0;
-  border-radius: 10px;
-  padding: 8px 12px;
-  background: var(--eqt-primary);
-  color: #fff;
-  cursor: pointer;
-}
-.eqt-inputRow button:hover {
-  background: var(--eqt-primary-hover);
-}
 
 .eqt-button {
+  color: var(--eqt-bg);
   background: var(--eqt-primary);
+  border: none;
 }
 .eqt-button:hover {
   background: var(--eqt-primary-hover);

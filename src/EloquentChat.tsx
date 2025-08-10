@@ -1,4 +1,5 @@
 import { useState, type FC } from "react";
+import { Logo } from "./ui/Logo";
 import "./styles/base.css";
 
 export type Theme = {
@@ -19,7 +20,7 @@ export type EloquentChatProps = {
 };
 
 export const EloquentChat: FC<EloquentChatProps> = ({
-  title = "Eloquent Chat",
+  title = "Eloquent AI",
   open,
   defaultOpen = true,
   onToggle,
@@ -50,10 +51,8 @@ export const EloquentChat: FC<EloquentChatProps> = ({
       {isOpen ? (
         <div className="eqt-panel">
           <div className="eqt-header">
-            {title}
-            <button className="eqt-close" onClick={() => setOpen(false)}>
-              ×
-            </button>
+            <Logo className="eqt-logo" />
+            <div className="eqt-title">{title}</div>
           </div>
           <div className="eqt-messages">
             <div>Welcome! This is a stub. ✨</div>
@@ -63,9 +62,13 @@ export const EloquentChat: FC<EloquentChatProps> = ({
           </div>
         </div>
       ) : (
-        <div className="eqt-launcher eqt-button" onClick={() => setOpen(true)}>
-          <span>💬</span>
-        </div>
+        <button
+          className="eqt-launcher eqt-button"
+          title={isOpen ? "Close chat" : "Open chat"}
+          onClick={() => setOpen(!isOpen)}
+        >
+          <Logo />
+        </button>
       )}
     </div>
   );
