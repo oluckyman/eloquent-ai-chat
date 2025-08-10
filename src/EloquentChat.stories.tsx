@@ -39,7 +39,7 @@ export const Themed: Story = {
       bg: "plum",
       text: "purple",
       textSecondary: "darkblue",
-      radius: "1px",
+      radius: "0px",
     },
   },
 };
@@ -49,6 +49,7 @@ export const Mobile: Story = {
     viewport: { value: "mobile1" },
   },
 };
+
 export const WithHistory: Story = {
   args: {
     initialMessages: [
@@ -84,5 +85,11 @@ export const Maintenence: Story = {
   args: {
     maintenance: true,
     maintenanceMessage: "Scheduled maintenance until 10:00 AM",
+  },
+};
+
+export const OpenAI: Story = {
+  args: {
+    agentUrl: "http://localhost:8787/api/agent",
   },
 };

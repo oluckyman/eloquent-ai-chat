@@ -3,6 +3,7 @@ import { Logo } from "./ui/Logo";
 import { ChevronDown } from "./ui/ChevronDown";
 import type { AgentClient, Message } from "./agent/types";
 import { MockAgentClient } from "./agent/mock";
+import { HttpAgentClient } from "./agent/http";
 import "./styles/base.css";
 
 export type Theme = {
@@ -29,6 +30,7 @@ export type EloquentChatProps = {
   status?: Status;
   maintenance?: boolean;
   maintenanceMessage?: string;
+  agentUrl?: string;
 };
 
 export function EloquentChat({
@@ -41,6 +43,7 @@ export function EloquentChat({
   status = "online",
   maintenance = false,
   maintenanceMessage = "We're down for maintenance",
+  agentUrl,
 }: EloquentChatProps) {
   const [uncontrolledOpen, setUncontrolledOpen] = useState(defaultOpen);
   const [messages, setMessages] = useState<Message[]>(initialMessages);
@@ -72,7 +75,7 @@ export function EloquentChat({
 
   // Messaging
   //
-  const agentRef = useRef<AgentClient>(new MockAgentClient(2000));
+  const agentRef = useRef<AgentClient>(agentUrl ? new HttpAgentClient(agentUrl) : new MockAgentClient(2000));
 
   const handleSend = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();

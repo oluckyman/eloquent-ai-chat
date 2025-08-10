@@ -34,7 +34,6 @@ export function init(options: InitOptions = {}): Handle {
     root.render(
       React.createElement(EloquentChat, {
         ...options,
-        maintenance: true,
         open: isOpen,
         onToggle: (nextOpen) => {
           isOpen = nextOpen;

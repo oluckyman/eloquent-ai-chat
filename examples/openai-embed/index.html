@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+  <meta charset="utf-8" />
+  <title>OpenAI Chat — Embed Demo</title>
+  <body>
+    <h1>OpenAI Demo</h1>
+    <p>Make sure the server from <code>examples/server</code> is running</p>
+    <pre>
+      cd examples/server
+      cp .env.example .env     # put your real OPENAI_API_KEY in .env
+      npm i
+      npm run dev              # starts on http://localhost:8787 (configurable via PORT)
+    </pre>
+
+    <script src="../../dist/eloquent-chat.global.js"></script>
+    <script>
+      window.chat = EloquentChat.init({
+        title: "OpenAI",
+        agentUrl: "http://localhost:8787/api/agent",
+      });
+    </script>
+  </body>
+</html>
