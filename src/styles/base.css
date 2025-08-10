@@ -94,6 +94,9 @@
   text-align: center;
   font-size: 12px;
 }
+.eqt-thinking {
+  color: var(--eqt-text-secondary);
+}
 
 .eqt-inputRow {
   display: flex;

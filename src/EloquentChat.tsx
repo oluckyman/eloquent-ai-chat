@@ -24,9 +24,13 @@ export type EloquentChatProps = {
 };
 
 export function EloquentChat({ title = "Eloquent AI", open, defaultOpen = true, onToggle, theme }: EloquentChatProps) {
+  const [uncontrolledOpen, setUncontrolledOpen] = useState(defaultOpen);
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [input, setInput] = useState("");
+  const [waiting, setWaiting] = useState(false);
+
   // Open / Close logic
   //
-  const [uncontrolledOpen, setUncontrolledOpen] = useState(defaultOpen);
   const isControlled = open !== undefined;
   const isOpen = isControlled ? open : uncontrolledOpen;
 
@@ -49,12 +53,12 @@ export function EloquentChat({ title = "Eloquent AI", open, defaultOpen = true, 
 
   // Messaging
   //
-  const [messages, setMessages] = useState<Message[]>([]);
-  const [input, setInput] = useState("");
-  const agentRef = useRef<AgentClient>(new MockAgentClient());
+  const agentRef = useRef<AgentClient>(new MockAgentClient(2000));
 
   const handleSend = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (waiting) return;
+
     const text = input.trim();
     if (!text) return;
 
@@ -63,6 +67,7 @@ export function EloquentChat({ title = "Eloquent AI", open, defaultOpen = true, 
 
     setMessages((prevHistory) => {
       const nextHistory = [...prevHistory, userMessage];
+      setTimeout(() => setWaiting(true), 500); // delay a bit to feel more natural
       agentRef.current
         .send(nextHistory)
         .then((replyText) => {
@@ -70,6 +75,9 @@ export function EloquentChat({ title = "Eloquent AI", open, defaultOpen = true, 
         })
         .catch(() => {
           // (errors later; skip for now)
+        })
+        .finally(() => {
+          setWaiting(false);
         });
 
       return nextHistory;
@@ -99,6 +107,7 @@ export function EloquentChat({ title = "Eloquent AI", open, defaultOpen = true, 
                 </div>
               ))
             )}
+            {waiting && <div className="eqt-thinking">Thinking…</div>}
           </div>
           <form className="eqt-inputRow" onSubmit={handleSend}>
             <input
@@ -108,7 +117,9 @@ export function EloquentChat({ title = "Eloquent AI", open, defaultOpen = true, 
               autoFocus
               autoComplete="off"
             />
-            <button type="submit">↑</button>
+            <button type="submit" disabled={input.trim().length === 0 || waiting}>
+              {waiting ? "…" : "↑"}
+            </button>
           </form>
         </div>
       )}
