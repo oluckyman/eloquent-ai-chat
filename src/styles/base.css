@@ -41,8 +41,9 @@
   position: absolute;
   right: 0;
   bottom: calc(var(--eqt-launcher-size) + var(--eqt-panel-gap));
-  width: 360px;
+  width: 320px;
   max-height: 70vh;
+  min-height: 50vh;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -91,6 +92,7 @@
   color: var(--eqt-text-secondary);
   padding: 24px;
   text-align: center;
+  font-size: 12px;
 }
 
 .eqt-inputRow {
