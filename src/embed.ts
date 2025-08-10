@@ -1,24 +1,14 @@
 import * as React from "react";
 import { createRoot } from "react-dom/client";
-import { EloquentChat, EloquentChatProps } from "./EloquentChat";
+import { type Theme, EloquentChat, EloquentChatProps } from "./EloquentChat";
 // @ts-expect-error
 import baseCss from "./styles/base.css"; // loaded as text via tsup loader
 
-type Theme = {
-  font?: string;
-  primary?: string;
-  primaryHover?: string;
-  bg?: string;
-  text?: string;
-  radius?: string;
-  shadow?: string;
-  zIndex?: string;
-};
-
 type InitOptions = {
   title?: string;
-  theme?: Theme;
   defaultOpen?: boolean;
+  theme?: Theme;
+  zIndex?: number;
 };
 
 type Handle = {
@@ -46,14 +36,8 @@ export function init(options: InitOptions = {}): Handle {
   mount.className = "eqt-shell";
   shadow.appendChild(mount);
 
-  // 5) Apply theme tokens (CSS custom properties) on the root
-  if (options.theme) {
-    const toKebabCase = (str: string) => str.replace(/[A-Z]/g, (m) => "-" + m.toLowerCase());
-    for (const [key, value] of Object.entries(options.theme)) {
-      if (value) {
-        mount.style.setProperty(`--eqt-${toKebabCase(key)}`, value);
-      }
-    }
+  if (options.zIndex != null) {
+    mount.style.zIndex = options.zIndex.toString();
   }
 
   // 6) Render React widget inside the shadow root
@@ -64,6 +48,7 @@ export function init(options: InitOptions = {}): Handle {
     root.render(
       React.createElement(EloquentChat, {
         title: options.title,
+        theme: options.theme,
         open: isOpen,
         onToggle: (nextOpen) => {
           isOpen = nextOpen;

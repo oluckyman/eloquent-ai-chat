@@ -26,3 +26,19 @@ export const ControlledClosed: Story = {
     return <EloquentChat {...args} open={isOpen} onToggle={handleToggle} />;
   },
 };
+
+export const Themed: Story = {
+  render: (args) => (
+    <EloquentChat
+      {...args}
+      theme={{
+        font: "Monaco",
+        primary: "red",
+        primaryHover: "yellow",
+        bg: "plum",
+        text: "purple",
+        radius: "1px",
+      }}
+    />
+  ),
+};

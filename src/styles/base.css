@@ -7,7 +7,6 @@
   --eqt-text: #0f172a;
   --eqt-radius: 12px;
   --eqt-shadow: 0 12px 32px rgba(0, 0, 0, 0.18);
-  --eqt-z-index: 20;
 
   font-family: var(--eqt-font);
   color: var(--eqt-text);
@@ -18,7 +17,7 @@
   position: fixed;
   right: 16px;
   bottom: 16px;
-  z-index: var(--eqt-z-index);
+  z-index: 20; /* can override from JS */
 }
 
 .eqt-launcher {
