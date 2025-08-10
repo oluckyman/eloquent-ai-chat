@@ -8,6 +8,7 @@
     "dist"
   ],
   "scripts": {
+    "push:consumer": "npm run build && TARBALL=$(npm pack --silent) && CONSUMER=../eloquent.ai-consumer && mv \"$TARBALL\" \"$CONSUMER\" && (cd \"$CONSUMER\" && npm i --no-save --force \"./$TARBALL\") && echo \"Installed $TARBALL in $CONSUMER\"",
     "storybook": "storybook dev -p 6006",
     "build": "tsup",
     "dev": "tsup --watch",
