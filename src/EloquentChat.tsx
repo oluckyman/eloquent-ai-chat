@@ -15,6 +15,7 @@ export type Theme = {
   shadow?: string;
   zIndex?: string;
 };
+type Status = "online" | "offline";
 export type EloquentChatProps = {
   title?: string;
   open?: boolean;
@@ -22,7 +23,9 @@ export type EloquentChatProps = {
   onToggle?: (open: boolean) => void;
   theme?: Theme;
   initialMessages?: Message[];
-  status?: "online" | "offline";
+  status?: Status;
+  maintenance?: boolean;
+  maintenanceMessage?: string;
 };
 
 export function EloquentChat({
@@ -33,11 +36,14 @@ export function EloquentChat({
   theme,
   initialMessages = [],
   status = "online",
+  maintenance = false,
+  maintenanceMessage = "We're down for maintenance",
 }: EloquentChatProps) {
   const [uncontrolledOpen, setUncontrolledOpen] = useState(defaultOpen);
   const [messages, setMessages] = useState<Message[]>(initialMessages);
   const [input, setInput] = useState("");
   const [waiting, setWaiting] = useState(false);
+  const statusOrMaintenece: Status = maintenance ? "offline" : status; // go offline when on maintenance
 
   // Open / Close logic
   //
@@ -67,7 +73,7 @@ export function EloquentChat({
 
   const handleSend = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (waiting) return;
+    if (waiting || maintenance) return;
 
     const text = input.trim();
     if (!text) return;
@@ -117,7 +123,7 @@ export function EloquentChat({
           <div className="eqt-header">
             <Logo className="eqt-logo" />
             <div className="eqt-title">{title}</div>
-            <span className={`eqt-status eqt-status--${status}`}>● {status}</span>
+            <span className={`eqt-status eqt-status--${statusOrMaintenece}`}>● {statusOrMaintenece}</span>
             <button className="eqt-close" type="button" onClick={() => setOpen(false)}>
               ×
             </button>
@@ -146,6 +152,8 @@ export function EloquentChat({
               </div>
             )}
           </div>
+
+          {maintenance && <div className="eqt-maintenance">{maintenanceMessage}</div>}
           <form className="eqt-inputRow" onSubmit={handleSend}>
             <input
               value={input}
@@ -153,8 +161,9 @@ export function EloquentChat({
               placeholder="Type a message…"
               autoFocus
               autoComplete="off"
+              disabled={maintenance}
             />
-            <button className="eqt-send" type="submit" disabled={input.trim().length === 0 || waiting}>
+            <button className="eqt-send" type="submit" disabled={input.trim().length === 0 || waiting || maintenance}>
               {waiting ? "…" : "↑"}
             </button>
           </form>

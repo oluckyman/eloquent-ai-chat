@@ -78,3 +78,10 @@ export const Offline: Story = {
     status: "offline",
   },
 };
+
+export const Maintenence: Story = {
+  args: {
+    maintenance: true,
+    maintenanceMessage: "Scheduled maintenance until 10:00 AM",
+  },
+};

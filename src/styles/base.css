@@ -6,6 +6,7 @@
   --eqt-bg-secondary: #e9eaee;
   --eqt-text: rgb(38, 38, 35);
   --eqt-text-secondary: rgb(138, 138, 135);
+  --eqt-border: rgba(0, 0, 0, 0.06);
   --eqt-online-text: #0a8027;
   --eqt-online-bg: rgba(10, 128, 39, 0.12);
   --eqt-radius: 12px;
@@ -61,7 +62,7 @@
   align-items: center;
   gap: 8px;
   padding: 12px 14px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  border-bottom: 1px solid var(--eqt-border);
 }
 .eqt-logo {
   width: 20px;
@@ -105,6 +106,7 @@
   flex: 1;
   overflow: auto;
   padding: 8px 12px;
+  padding-bottom: 24px;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -174,19 +176,29 @@
   font-size: 12px;
 }
 
+.eqt-maintenance {
+  padding: 6px 22px;
+  background: var(--eqt-bg-secondary);
+  color: var(--eqt-text-secondary);
+  font-size: 12px;
+  border-top: 1px solid var(--eqt-border);
+}
 .eqt-inputRow {
   display: flex;
   gap: 8px;
   padding: 10px 12px;
-  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  border-top: 1px solid var(--eqt-border);
   position: relative;
 }
 .eqt-inputRow input {
   flex: 1;
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--eqt-border);
   border-radius: 10px;
   padding: 8px 10px;
   padding-right: 38px;
+}
+.eqt-inputRow input[disabled] {
+  background-color: var(--eqt-bg-secondary);
 }
 .eqt-send {
   position: absolute;
