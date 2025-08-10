@@ -1,0 +1,88 @@
+.eqt-root {
+  --eqt-font: Geist, Arial, sans-serif;
+  --eqt-primary: rgb(111, 51, 183);
+  --eqt-primary-hover: rgb(235, 108, 82);
+
+  --eqt-bg: #ffffff;
+  --eqt-text: #0f172a;
+  --eqt-radius: 12px;
+  --eqt-shadow: 0 12px 32px rgba(0, 0, 0, 0.18);
+
+  font-family: var(--eqt-font);
+  color: var(--eqt-text);
+}
+
+/* floating shell (used by IIFE, optional for React) */
+.eqt-shell {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: 1;
+}
+
+.eqt-launcher {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 100%;
+  box-shadow: var(--eqt-shadow);
+  cursor: pointer;
+}
+
+.eqt-panel {
+  width: 340px;
+  max-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: var(--eqt-radius);
+  background: var(--eqt-bg);
+  box-shadow: var(--eqt-shadow);
+}
+
+.eqt-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  font-weight: 600;
+}
+
+.eqt-messages {
+  flex: 1;
+  overflow: auto;
+  padding: 8px 12px;
+}
+
+.eqt-inputRow {
+  display: flex;
+  gap: 8px;
+  padding: 10px 12px;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
+.eqt-inputRow input {
+  flex: 1;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  padding: 8px 10px;
+}
+.eqt-inputRow button {
+  border: 0;
+  border-radius: 10px;
+  padding: 8px 12px;
+  background: var(--eqt-primary);
+  color: #fff;
+  cursor: pointer;
+}
+.eqt-inputRow button:hover {
+  background: var(--eqt-primary-hover);
+}
+
+.eqt-button {
+  background: var(--eqt-primary);
+}
+.eqt-button:hover {
+  background: var(--eqt-primary-hover);
+}

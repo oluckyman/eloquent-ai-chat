@@ -1,24 +1,90 @@
 import * as React from "react";
 import { createRoot } from "react-dom/client";
-import { EloquentChat } from "./EloquentChat";
+import { EloquentChat, EloquentChatProps } from "./EloquentChat";
+// @ts-expect-error
+import baseCss from "./styles/base.css"; // loaded as text via tsup loader
 
-export type InitOptions = { title?: string };
-export type Handle = { open: () => void; close: () => void; destroy: () => void };
+type Theme = {
+  font?: string;
+  primary?: string;
+  primaryHover?: string;
+  bg?: string;
+  text?: string;
+  radius?: string;
+  shadow?: string;
+};
 
-export function init(opts: InitOptions = {}): Handle {
-  const container = document.createElement("div");
-  container.id = "eloquent-chat-container";
-  document.body.appendChild(container);
+type InitOptions = {
+  title?: string;
+  theme?: Theme;
+  defaultOpen?: boolean;
+};
 
-  const root = createRoot(container);
-  root.render(React.createElement(EloquentChat, { title: opts.title }));
+type Handle = {
+  open: () => void;
+  close: () => void;
+  destroy: () => void;
+};
+
+export function init(options: InitOptions = {}): Handle {
+  // 1) Host node in page DOM
+  const host = document.createElement("div");
+  host.id = "eloquent-chat-container";
+  document.body.appendChild(host);
+
+  // 2) Shadow DOM for isolation
+  const shadow = host.attachShadow({ mode: "open" });
+
+  // 3) Inject styles into shadow (single source of truth)
+  const style = document.createElement("style");
+  // :host{all:initial} prevents host-page CSS from leaking in
+  style.textContent = `:host{all:initial}\n${baseCss}`;
+  shadow.appendChild(style);
+
+  // 4) Mount element (scoped root + floating shell)
+  const mount = document.createElement("div");
+  mount.className = "eqt-root eqt-shell";
+  shadow.appendChild(mount);
+
+  // 5) Apply theme tokens (CSS custom properties) on the root
+  if (options.theme) {
+    const toKebabCase = (str: string) => str.replace(/[A-Z]/g, (m) => "-" + m.toLowerCase());
+    for (const [key, value] of Object.entries(options.theme)) {
+      if (value) {
+        mount.style.setProperty(`--eqt-${toKebabCase(key)}`, value);
+      }
+    }
+  }
+
+  // 6) Render React widget inside the shadow root
+  const root = createRoot(mount);
+  let isOpen = options.defaultOpen ?? true;
+  const render = () =>
+    root.render(
+      React.createElement(EloquentChat, {
+        title: options.title,
+        open: isOpen,
+        onToggle: (nextOpen) => {
+          isOpen = nextOpen;
+          render();
+        },
+      } as EloquentChatProps),
+    );
+
+  render();
 
   return {
-    open: () => {},
-    close: () => {},
+    open: () => {
+      isOpen = true;
+      render();
+    },
+    close: () => {
+      isOpen = false;
+      render();
+    },
     destroy: () => {
       root.unmount();
-      container.remove();
+      host.remove();
     },
   };
 }

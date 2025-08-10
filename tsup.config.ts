@@ -12,6 +12,7 @@ export default defineConfig([
     platform: "browser",
     minify: true,
     sourcemap: true,
+    loader: { ".css": "text" },
   },
   // IIFE build: for <script> tag, React bundled inside
   {
@@ -24,5 +25,6 @@ export default defineConfig([
     minify: true,
     sourcemap: true,
     define: { "process.env.NODE_ENV": '"production"' },
+    loader: { ".css": "text" },
   },
 ]);

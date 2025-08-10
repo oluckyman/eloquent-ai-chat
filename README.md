@@ -1,3 +1,7 @@
+A11y pass is out of scope; can be added later if desired.
+
+===
+
 Front-End Technical Assignment –
 Embeddable Chat Widget
 Overview
