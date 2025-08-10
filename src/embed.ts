@@ -1,15 +1,10 @@
 import * as React from "react";
 import { createRoot } from "react-dom/client";
-import { type Theme, EloquentChat, EloquentChatProps } from "./EloquentChat";
+import { EloquentChat, type EloquentChatProps } from "./EloquentChat";
 // @ts-expect-error
 import baseCss from "./styles/base.css"; // loaded as text via tsup loader
 
-type InitOptions = {
-  title?: string;
-  defaultOpen?: boolean;
-  theme?: Theme;
-  zIndex?: number;
-};
+type InitOptions = Omit<EloquentChatProps, "open" | "onToggle">;
 
 type Handle = {
   open: () => void;
@@ -38,14 +33,14 @@ export function init(options: InitOptions = {}): Handle {
   const render = () =>
     root.render(
       React.createElement(EloquentChat, {
-        title: options.title,
-        theme: options.theme,
+        ...options,
+        maintenance: true,
         open: isOpen,
         onToggle: (nextOpen) => {
           isOpen = nextOpen;
           render();
         },
-      } as EloquentChatProps),
+      }),
     );
 
   render();

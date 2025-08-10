@@ -10,10 +10,13 @@ export type Theme = {
   primary?: string;
   primaryHover?: string;
   bg?: string;
+  bgSecondary?: string;
   text?: string;
+  textSecondary?: string;
   radius?: string;
   shadow?: string;
   zIndex?: string;
+  // add more --eqt-* vars from .eqt-root in base.css if needed
 };
 type Status = "online" | "offline";
 export type EloquentChatProps = {
@@ -154,7 +157,7 @@ export function EloquentChat({
           </div>
 
           {maintenance && <div className="eqt-maintenance">{maintenanceMessage}</div>}
-          <form className="eqt-inputRow" onSubmit={handleSend}>
+          <form className={`eqt-inputRow ${maintenance ? "eqt-inputRow--maintenance" : ""}`} onSubmit={handleSend}>
             <input
               value={input}
               onChange={(e) => setInput(e.target.value)}

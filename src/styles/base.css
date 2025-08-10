@@ -8,7 +8,7 @@
   --eqt-text-secondary: rgb(138, 138, 135);
   --eqt-border: rgba(0, 0, 0, 0.06);
   --eqt-online-text: #0a8027;
-  --eqt-online-bg: rgba(10, 128, 39, 0.12);
+  --eqt-online-bg: rgba(10, 128, 39, 0.22);
   --eqt-radius: 12px;
   --eqt-shadow: 0 12px 32px rgba(0, 0, 0, 0.18);
   --eqt-z-index: 20;
@@ -85,7 +85,7 @@
   font-variant: small-caps;
 }
 .eqt-status--online {
-  color: var(--eqt-online-color);
+  color: var(--eqt-online-text);
   background: var(--eqt-online-bg);
 }
 .eqt-status--offline {
@@ -177,7 +177,7 @@
 }
 
 .eqt-maintenance {
-  padding: 6px 22px;
+  padding: 12px 22px 6px 22px;
   background: var(--eqt-bg-secondary);
   color: var(--eqt-text-secondary);
   font-size: 12px;
@@ -190,6 +190,12 @@
   border-top: 1px solid var(--eqt-border);
   position: relative;
 }
+
+.eqt-inputRow--maintenance {
+  border-top: 0;
+  background: var(--eqt-bg-secondary);
+}
+
 .eqt-inputRow input {
   flex: 1;
   border: 1px solid var(--eqt-border);

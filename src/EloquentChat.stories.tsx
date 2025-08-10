@@ -33,11 +33,12 @@ export const ControlledClosed: Story = {
 export const Themed: Story = {
   args: {
     theme: {
-      font: "Monaco",
+      font: "PT Sans",
       primary: "red",
       primaryHover: "yellow",
       bg: "plum",
       text: "purple",
+      textSecondary: "darkblue",
       radius: "1px",
     },
   },
