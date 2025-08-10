@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Logo } from "./ui/Logo";
+import { ChevronDown } from "./ui/ChevronDown";
 import "./styles/base.css";
 
 export type Theme = {
@@ -62,7 +63,7 @@ export function EloquentChat({ title = "Eloquent AI", open, defaultOpen = true, 
         title={isOpen ? "Close chat" : "Open chat"}
         onClick={() => setOpen(!isOpen)}
       >
-        <Logo />
+        {isOpen ? <ChevronDown /> : <Logo />}
       </button>
     </div>
   );
