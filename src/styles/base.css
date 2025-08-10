@@ -177,31 +177,39 @@
 }
 
 .eqt-maintenance {
-  padding: 12px 22px 6px 22px;
+  padding: 12px;
+  margin: 0 12px;
+  margin-bottom: calc(-12px - 20px - 10px); /* slide it under input row */
+  padding-bottom: calc(12px + 20px + 10px);
   background: var(--eqt-bg-secondary);
   color: var(--eqt-text-secondary);
   font-size: 12px;
-  border-top: 1px solid var(--eqt-border);
+  border-radius: 10px;
+  border: 1px solid var(--eqt-border);
 }
 .eqt-inputRow {
   display: flex;
   gap: 8px;
   padding: 10px 12px;
-  border-top: 1px solid var(--eqt-border);
   position: relative;
 }
 
 .eqt-inputRow--maintenance {
   border-top: 0;
-  background: var(--eqt-bg-secondary);
+}
+.eqt-inputRow.eqt-inputRow--maintenance input {
+  box-shadow: none;
+  opacity: 0.6;
 }
 
 .eqt-inputRow input {
+  height: 14px;
   flex: 1;
   border: 1px solid var(--eqt-border);
   border-radius: 10px;
   padding: 8px 10px;
   padding-right: 38px;
+  box-shadow: 0 0px 2px rgba(0, 0, 0, 0.1);
 }
 .eqt-inputRow input[disabled] {
   background-color: var(--eqt-bg-secondary);

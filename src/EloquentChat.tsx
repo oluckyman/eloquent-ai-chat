@@ -57,7 +57,6 @@ export function EloquentChat({
   //
   const isControlled = open !== undefined;
   const isOpen = isControlled ? open : uncontrolledOpen;
-
   const setOpen = (v: boolean) => {
     if (!isControlled) {
       setUncontrolledOpen(v);
