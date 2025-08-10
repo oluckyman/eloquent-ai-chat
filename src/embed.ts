@@ -12,6 +12,7 @@ type Theme = {
   text?: string;
   radius?: string;
   shadow?: string;
+  zIndex?: string;
 };
 
 type InitOptions = {
@@ -41,9 +42,8 @@ export function init(options: InitOptions = {}): Handle {
   style.textContent = `:host{all:initial}\n${baseCss}`;
   shadow.appendChild(style);
 
-  // 4) Mount element (scoped root + floating shell)
   const mount = document.createElement("div");
-  mount.className = "eqt-root eqt-shell";
+  mount.className = "eqt-shell";
   shadow.appendChild(mount);
 
   // 5) Apply theme tokens (CSS custom properties) on the root
