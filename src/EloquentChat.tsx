@@ -21,11 +21,19 @@ export type EloquentChatProps = {
   defaultOpen?: boolean;
   onToggle?: (open: boolean) => void;
   theme?: Theme;
+  initialMessages?: Message[];
 };
 
-export function EloquentChat({ title = "Eloquent AI", open, defaultOpen = true, onToggle, theme }: EloquentChatProps) {
+export function EloquentChat({
+  title = "Eloquent AI",
+  open,
+  defaultOpen = true,
+  onToggle,
+  theme,
+  initialMessages = [],
+}: EloquentChatProps) {
   const [uncontrolledOpen, setUncontrolledOpen] = useState(defaultOpen);
-  const [messages, setMessages] = useState<Message[]>([]);
+  const [messages, setMessages] = useState<Message[]>(initialMessages);
   const [input, setInput] = useState("");
   const [waiting, setWaiting] = useState(false);
 
