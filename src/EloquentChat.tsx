@@ -1,4 +1,5 @@
-import * as React from "react";
+import { useState, FC } from "react";
+import "./styles/base.css";
 
 export type EloquentChatProps = {
   title?: string;
@@ -7,13 +8,13 @@ export type EloquentChatProps = {
   onToggle?: (open: boolean) => void;
 };
 
-export const EloquentChat: React.FC<EloquentChatProps> = ({
+export const EloquentChat: FC<EloquentChatProps> = ({
   title = "Eloquent Chat",
   open,
   defaultOpen = true,
   onToggle,
 }) => {
-  const [uncontrolledOpen, setUncontrolledOpen] = React.useState<boolean>(defaultOpen);
+  const [uncontrolledOpen, setUncontrolledOpen] = useState(defaultOpen);
   const isControlled = open !== undefined;
   const isOpen = isControlled ? open : uncontrolledOpen;
 
@@ -25,7 +26,7 @@ export const EloquentChat: React.FC<EloquentChatProps> = ({
   };
 
   return (
-    <>
+    <div className="eqt-root">
       {isOpen ? (
         <div className="eqt-panel">
           <div className="eqt-header">
@@ -46,6 +47,6 @@ export const EloquentChat: React.FC<EloquentChatProps> = ({
           <span>💬</span>
         </div>
       )}
-    </>
+    </div>
   );
 };

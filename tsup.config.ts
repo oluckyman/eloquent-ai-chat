@@ -12,7 +12,8 @@ export default defineConfig([
     platform: "browser",
     minify: true,
     sourcemap: true,
-    loader: { ".css": "text" },
+    loader: { ".css": "css" },
+    injectStyle: true,
   },
   // IIFE build: for <script> tag, React bundled inside
   {
