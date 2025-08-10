@@ -13,11 +13,14 @@ export const EloquentChat: React.FC<EloquentChatProps> = ({
   defaultOpen = true,
   onToggle,
 }) => {
+  const [uncontrolledOpen, setUncontrolledOpen] = React.useState<boolean>(defaultOpen);
   const isControlled = open !== undefined;
+  const isOpen = isControlled ? open : uncontrolledOpen;
 
-  const [isOpen, setIsOpen] = React.useState(open ?? defaultOpen);
   const setOpen = (v: boolean) => {
-    setIsOpen(v);
+    if (!isControlled) {
+      setUncontrolledOpen(v);
+    }
     onToggle?.(v);
   };
 
