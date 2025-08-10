@@ -1,6 +1,7 @@
-import { type FormEvent, useEffect, useRef, useState } from "react";
+import { type ComponentProps, type FormEvent, useEffect, useRef, useState } from "react";
 import { Logo } from "./ui/Logo";
 import { ChevronDown } from "./ui/ChevronDown";
+import { Header } from "./ui/Header";
 import type { Message } from "./agent/types";
 import { useChatAgent } from "./hooks/useChatAgent";
 
@@ -19,7 +20,6 @@ export type Theme = {
   zIndex?: string;
   // add more --eqt-* vars from .eqt-root in base.css if needed
 };
-type Status = "online" | "offline";
 export type EloquentChatProps = {
   title?: string;
   open?: boolean;
@@ -27,7 +27,7 @@ export type EloquentChatProps = {
   onToggle?: (open: boolean) => void;
   theme?: Theme;
   initialMessages?: Message[];
-  status?: Status;
+  status?: ComponentProps<typeof Header>["status"];
   maintenance?: boolean;
   maintenanceMessage?: string;
   agentUrl?: string;
@@ -47,7 +47,7 @@ export function EloquentChat({
 }: EloquentChatProps) {
   const [uncontrolledOpen, setUncontrolledOpen] = useState(defaultOpen);
   const [input, setInput] = useState("");
-  const statusOrMaintenece: Status = maintenance ? "offline" : status; // go offline when on maintenance
+  const statusOrMaintenance = maintenance ? "offline" : status; // go offline when on maintenance
 
   const { messages, waiting, send } = useChatAgent({ agentUrl, initialMessages });
 
@@ -102,14 +102,7 @@ export function EloquentChat({
     <div className={`eqt-root ${isOpen ? "is-open" : ""}`} style={varStyle}>
       {isOpen && (
         <div className="eqt-panel">
-          <div className="eqt-header">
-            <Logo className="eqt-logo" />
-            <div className="eqt-title">{title}</div>
-            <span className={`eqt-status eqt-status--${statusOrMaintenece}`}>● {statusOrMaintenece}</span>
-            <button className="eqt-close" type="button" onClick={() => setOpen(false)}>
-              ×
-            </button>
-          </div>
+          <Header title={title} status={statusOrMaintenance} onClose={() => setOpen(false)} />
           <div className="eqt-messages" ref={messagesRef}>
             {messages.length === 0 ? (
               <div className="eqt-placeholder">Ask me anything! ✨</div>
