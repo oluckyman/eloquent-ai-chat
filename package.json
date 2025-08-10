@@ -8,6 +8,7 @@
     "dist"
   ],
   "scripts": {
+    "storybook": "storybook dev -p 6006",
     "build": "tsup",
     "dev": "tsup --watch",
     "typecheck": "tsc --noEmit"
@@ -17,10 +18,13 @@
     "react-dom": ">=18"
   },
   "devDependencies": {
+    "@storybook/addon-essentials": "^8.6.14",
+    "@storybook/react-vite": "^8.6.14",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "react": "^18",
     "react-dom": "^18",
+    "storybook": "^8.6.14",
     "tsup": "^8",
     "typescript": "^5"
   }
