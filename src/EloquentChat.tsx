@@ -54,7 +54,7 @@ export function EloquentChat({ title = "Eloquent AI", open, defaultOpen = true, 
             </button>
           </div>
           <div className="eqt-messages">
-            <div>Welcome! This is a stub. ✨</div>
+            <div className="eqt-placeholder">Ask me anything! ✨</div>
           </div>
           <div className="eqt-inputRow">
             <input placeholder="Type a message…" autoFocus autoComplete="off" />
