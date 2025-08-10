@@ -72,3 +72,9 @@ export const WithHistory: Story = {
     ],
   },
 };
+
+export const Offline: Story = {
+  args: {
+    status: "offline",
+  },
+};

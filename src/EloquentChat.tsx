@@ -22,6 +22,7 @@ export type EloquentChatProps = {
   onToggle?: (open: boolean) => void;
   theme?: Theme;
   initialMessages?: Message[];
+  status?: "online" | "offline";
 };
 
 export function EloquentChat({
@@ -31,6 +32,7 @@ export function EloquentChat({
   onToggle,
   theme,
   initialMessages = [],
+  status = "online",
 }: EloquentChatProps) {
   const [uncontrolledOpen, setUncontrolledOpen] = useState(defaultOpen);
   const [messages, setMessages] = useState<Message[]>(initialMessages);
@@ -115,6 +117,7 @@ export function EloquentChat({
           <div className="eqt-header">
             <Logo className="eqt-logo" />
             <div className="eqt-title">{title}</div>
+            <span className={`eqt-status eqt-status--${status}`}>● {status}</span>
             <button className="eqt-close" type="button" onClick={() => setOpen(false)}>
               ×
             </button>
