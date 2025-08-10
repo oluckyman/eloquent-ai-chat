@@ -7,22 +7,26 @@
   --eqt-radius: 12px;
   --eqt-shadow: 0 12px 32px rgba(0, 0, 0, 0.18);
   --eqt-z-index: 20;
+  --eqt-launcher-size: 56px;
+  --eqt-panel-gap: 8px;
 
   font-family: var(--eqt-font);
   color: var(--eqt-text);
   position: fixed;
   right: 16px;
   bottom: 16px;
-  z-index: var(--eqt-z-index);
+  z-index: var(--eqt-z-index); /* can override from JS */
 }
 
 .eqt-launcher {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 52px;
-  height: 52px;
+  width: var(--eqt-launcher-size);
+  height: var(--eqt-launcher-size);
   border-radius: 50%;
+  background: var(--eqt-primary);
+  color: var(--eqt-bg);
   box-shadow: var(--eqt-shadow);
   cursor: pointer;
 }
@@ -33,8 +37,11 @@
 }
 
 .eqt-panel {
-  width: 340px;
-  max-height: 60vh;
+  position: absolute;
+  right: 0;
+  bottom: calc(var(--eqt-launcher-size) + var(--eqt-panel-gap));
+  width: 360px;
+  max-height: 70vh;
   display: flex;
   flex-direction: column;
   overflow: hidden;
