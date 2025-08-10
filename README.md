@@ -1,4 +1,4 @@
-# OpenAI Agent Testing
+# Eloquent Chat Widget
 
 ## 1. Start the Agent Server
 

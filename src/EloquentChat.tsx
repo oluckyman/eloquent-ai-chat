@@ -1,9 +1,9 @@
 import { type FormEvent, useEffect, useRef, useState } from "react";
 import { Logo } from "./ui/Logo";
 import { ChevronDown } from "./ui/ChevronDown";
-import type { AgentClient, Message } from "./agent/types";
-import { MockAgentClient } from "./agent/mock";
-import { HttpAgentClient } from "./agent/http";
+import type { Message } from "./agent/types";
+import { useChatAgent } from "./hooks/useChatAgent";
+
 import "./styles/base.css";
 
 export type Theme = {
@@ -46,10 +46,10 @@ export function EloquentChat({
   agentUrl,
 }: EloquentChatProps) {
   const [uncontrolledOpen, setUncontrolledOpen] = useState(defaultOpen);
-  const [messages, setMessages] = useState<Message[]>(initialMessages);
   const [input, setInput] = useState("");
-  const [waiting, setWaiting] = useState(false);
   const statusOrMaintenece: Status = maintenance ? "offline" : status; // go offline when on maintenance
+
+  const { messages, waiting, send } = useChatAgent({ agentUrl, initialMessages });
 
   // Open / Close logic
   //
@@ -75,44 +75,12 @@ export function EloquentChat({
 
   // Messaging
   //
-  const agentRef = useRef<AgentClient>(agentUrl ? new HttpAgentClient(agentUrl) : new MockAgentClient(2000));
-
   const handleSend = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (waiting || maintenance) return;
-
     const text = input.trim();
     if (!text) return;
-
-    const now = Date.now();
-    const userMessage: Message = { id: `u_${now}`, role: "user", text };
-
-    setMessages((prevHistory) => {
-      const nextHistory = [...prevHistory, userMessage];
-      setWaiting(true);
-      agentRef.current
-        .send(nextHistory)
-        .then((replyText) => {
-          setMessages((curr) => [...curr, { id: `a_${Date.now()}`, role: "assistant", text: replyText }]);
-        })
-        .catch((err) => {
-          setMessages((curr) => [
-            ...curr,
-            {
-              id: `e_${Date.now()}`,
-              role: "assistant",
-              text: "Sorry, something went wrong. Please try again.",
-            },
-          ]);
-          console.warn("Agent failed:", err);
-        })
-        .finally(() => {
-          setWaiting(false);
-        });
-
-      return nextHistory;
-    });
-
+    send(text);
     setInput("");
   };
 
