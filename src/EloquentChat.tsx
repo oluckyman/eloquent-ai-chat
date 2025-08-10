@@ -1,4 +1,4 @@
-import { type FormEvent, useRef, useState } from "react";
+import { type FormEvent, useEffect, useRef, useState } from "react";
 import { Logo } from "./ui/Logo";
 import { ChevronDown } from "./ui/ChevronDown";
 import type { AgentClient, Message } from "./agent/types";
@@ -94,6 +94,20 @@ export function EloquentChat({
     setInput("");
   };
 
+  // Auto-scroll
+  //
+  const messagesRef = useRef<HTMLDivElement | null>(null);
+  useEffect(() => {
+    const el = messagesRef.current;
+    if (!el) return;
+
+    const rAF = requestAnimationFrame(() => {
+      el.scrollTop = el.scrollHeight;
+    });
+
+    return () => cancelAnimationFrame(rAF);
+  }, [messages.length, waiting]);
+
   return (
     <div className={`eqt-root ${isOpen ? "is-open" : ""}`} style={varStyle}>
       {isOpen && (
@@ -105,7 +119,7 @@ export function EloquentChat({
               ×
             </button>
           </div>
-          <div className="eqt-messages">
+          <div className="eqt-messages" ref={messagesRef}>
             {messages.length === 0 ? (
               <div className="eqt-placeholder">Ask me anything! ✨</div>
             ) : (
