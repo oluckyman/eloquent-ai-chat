@@ -219,8 +219,8 @@
   top: 50%;
   right: 20px;
   transform: translateY(-50%);
-  width: 22px;
-  height: 22px;
+  width: 24px;
+  height: 24px;
   border-radius: 999px;
   border: 0;
   background: var(--eqt-primary);

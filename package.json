@@ -1,5 +1,5 @@
 {
-  "name": "eloquent-chat-widget",
+  "name": "eloquent-ai-chat",
   "version": "0.0.1",
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
@@ -12,7 +12,8 @@
     "storybook": "storybook dev -p 6006",
     "build": "tsup",
     "dev": "tsup --watch",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "npm run build"
   },
   "peerDependencies": {
     "react": ">=18",

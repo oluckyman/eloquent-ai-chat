@@ -23,7 +23,17 @@ export function InputBar({ value, onChange, onSubmit, waiting, maintenance, main
           disabled={maintenance}
         />
         <button className="eqt-send" type="submit" disabled={value.trim().length === 0 || waiting || maintenance}>
-          {waiting ? "…" : "↑"}
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <polyline points="6 15 12 9 18 15" />
+            <line x1="12" y1="10" x2="12" y2="20" />
+          </svg>
         </button>
       </form>
     </>
