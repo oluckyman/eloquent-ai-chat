@@ -22,7 +22,11 @@ export function InputBar({ value, onChange, onSubmit, waiting, maintenance, main
           autoComplete="off"
           disabled={maintenance}
         />
-        <button className="eqt-send" type="submit" disabled={value.trim().length === 0 || waiting || maintenance}>
+        <button
+          className="eqt-send eqt-button"
+          type="submit"
+          disabled={value.trim().length === 0 || waiting || maintenance}
+        >
           <svg
             viewBox="0 0 24 24"
             fill="none"

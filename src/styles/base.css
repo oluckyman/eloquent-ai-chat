@@ -222,13 +222,11 @@
   width: 24px;
   height: 24px;
   border-radius: 999px;
-  border: 0;
-  background: var(--eqt-primary);
-  color: var(--eqt-bg);
   cursor: pointer;
 }
-.eqt-send:hover {
-  background: var(--eqt-primary-hover);
+.eqt-send svg {
+  width: 20px;
+  height: 20px;
 }
 .eqt-send[disabled] {
   opacity: 0.6;
@@ -240,6 +238,7 @@
   color: var(--eqt-bg);
   background: var(--eqt-primary);
   border: none;
+  padding: 0;
 }
 .eqt-button:hover {
   background: var(--eqt-primary-hover);
