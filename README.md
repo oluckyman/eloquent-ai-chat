@@ -23,35 +23,30 @@ open examples/vanilla-embed/index.html
 
 The page demonstrates custom theming and programmable open/close/destroy functionality.
 
-## Publish the npm Package Locally
-
-```bash
-# build the library + iife
-npm run build
-# create a local tarball
-npm pack
-# → outputs something like: eloquent-chat-widget-0.0.1.tgz
-```
-
-## Test in a Fresh App (Optional)
+## Test in a Fresh App
 
 ```bash
 # in another folder
 npm create vite@latest widget-consumer -- --template react-ts
 cd widget-consumer
-npm i
-npm i ../path/to/eloquent-chat-widget-0.0.1.tgz
+npm i eloquent-ai-chat
 ```
 
 Then update your app component:
 
 ```tsx
-// widget-consumer/src/App.tsx
-import { EloquentChat } from "eloquent-chat-widget";
+// src/App.tsx
+import { EloquentChat } from "eloquent-ai-chat";
 
 export default function App() {
   return <EloquentChat title="Hello" />;
 }
+```
+
+Then run the app:
+
+```bash
+npm run dev
 ```
 
 ## OpenAI Agent Testing
