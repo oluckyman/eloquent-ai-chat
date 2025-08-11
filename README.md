@@ -1,6 +1,6 @@
-# Eloquent Chat Widget
+# Eloquent.ai Chat
 
-## Build & Test the React Component
+## Test the React Component in Storybook
 
 ```bash
 # install deps
@@ -10,12 +10,24 @@ npm i
 npm run storybook
 ```
 
-## Package & Publish the npm Package Locally
+## Script-tag (IIFE) Demo — `examples/vanilla-embed`
+
+This is an example of how you can use the widget via a script tag.
+
+```bash
+# build the bundle (creates `dist/eloquent-chat.global.js`):
+npm run build
+# open HTML file in browser
+open examples/vanilla-embed/index.html
+```
+
+The page demonstrates custom theming and programmable open/close/destroy functionality.
+
+## Publish the npm Package Locally
 
 ```bash
 # build the library + iife
 npm run build
-
 # create a local tarball
 npm pack
 # → outputs something like: eloquent-chat-widget-0.0.1.tgz
