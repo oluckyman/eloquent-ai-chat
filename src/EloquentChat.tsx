@@ -25,15 +25,16 @@ export type Theme = {
 
 export type EloquentChatProps = {
   title?: string;
-  open?: boolean;
+  open?: boolean; // controlled open/close state
   defaultOpen?: boolean;
   onToggle?: (open: boolean) => void;
   theme?: Theme;
-  initialMessages?: Message[];
+  initialMessages?: Message[]; // together with onMessage callback allows to store history in external storage
+  // TOOD: onMessage callback
   status?: ComponentProps<typeof Header>["status"];
   maintenance?: boolean;
   maintenanceMessage?: string;
-  agentUrl?: string;
+  agentUrl?: string; // see src/agent/http.ts
 };
 
 export function EloquentChat({
@@ -51,8 +52,6 @@ export function EloquentChat({
   const [uncontrolledOpen, setUncontrolledOpen] = useState(defaultOpen);
   const [input, setInput] = useState("");
   const statusOrMaintenance = maintenance ? "offline" : status; // go offline when on maintenance
-
-  const { messages, waiting, send } = useChatAgent({ agentUrl, initialMessages });
 
   // Open / Close logic
   //
@@ -77,6 +76,7 @@ export function EloquentChat({
 
   // Messaging
   //
+  const { messages, waiting, send } = useChatAgent({ agentUrl, initialMessages });
   const handleSend = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (waiting || maintenance) return;

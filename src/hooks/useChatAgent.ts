@@ -3,6 +3,12 @@ import type { AgentClient, Message } from "../agent/types";
 import { MockAgentClient } from "../agent/mock";
 import { HttpAgentClient } from "../agent/http";
 
+/**
+ * Manages chat conversations with AI agents.
+ * Handles history state, sends user messages to agent, receives reply, and manages loading states.
+ * Supports both HTTP and mock agent clients based on configuration.
+ */
+
 export type UseChatAgentOpts = {
   agentUrl?: string;
   initialMessages?: Message[];

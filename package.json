@@ -1,6 +1,6 @@
 {
   "name": "eloquent-ai-chat",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
@@ -8,7 +8,6 @@
     "dist"
   ],
   "scripts": {
-    "push:consumer": "npm run build && TARBALL=$(npm pack --silent) && CONSUMER=../eloquent.ai-consumer && mv \"$TARBALL\" \"$CONSUMER\" && (cd \"$CONSUMER\" && npm i --no-save --force \"./$TARBALL\") && echo \"Installed $TARBALL in $CONSUMER\"",
     "storybook": "storybook dev -p 6006",
     "build": "tsup",
     "dev": "tsup --watch",
